@@ -1,58 +1,120 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📘 SyIAR Gemilang (Sistem Informasi Rumah Gemilang)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+[![Laravel Version](https://img.shields.io/badge/Laravel-10.x-red.svg)](https://laravel.com)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-Development-orange.svg)]()
 
-## About Laravel
+**SyIAR Gemilang** adalah sistem informasi berbasis web yang dirancang khusus untuk lembaga pendidikan **Rumah Gemilang**. Sistem ini bertujuan untuk mengintegrasikan seluruh kegiatan akademik, manajemen pengguna, serta operasional lembaga secara terstruktur dan efisien.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Overview
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+SyIAR Gemilang hadir sebagai solusi digital untuk mengatasi kompleksitas pengelolaan data di lembaga pendidikan multi-cabang. Fokus utama sistem ini adalah validitas data akademik dan skalabilitas, memastikan operasional berjalan lancar dari level instruktur hingga manajemen pusat.
 
-## Learning Laravel
+## 🛠 Teknologi yang Digunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Framework:** Laravel (PHP)
+- **Database:** MySQL
+- **Frontend:** Blade Templating (Optional: Vue.js for reactive components)
+- **Authentication:** Laravel Breeze / Jetstream (Inertia/Livewire)
+- **Server:** Nginx / Apache
+- **Styling:** Tailwind CSS / Bootstrap
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 👥 Role & Hak Akses
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Sistem menggunakan **Role-Based Access Control (RBAC)** yang ketat:
 
-## Agentic Development
+1.  **Admin (Super Admin):** Kendali penuh sistem, manajemen user pusat, dan setting global.
+2.  **Admin Cabang:** Pengelola data spesifik cabang, manajemen peserta, instruktur, dan jadwal lokal.
+3.  **Instruktur:** Manajemen materi, input nilai (tugas/ujian), absensi, dan jadwal mengajar.
+4.  **Manajemen:** Akses laporan akademik, keuangan, dan monitoring performa (Analisis Data).
+5.  **Peserta Didik:** Akses materi, melihat jadwal, cek nilai, dan absensi (check-in).
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## ✨ Fitur Utama (Akademik)
 
-```bash
-composer require laravel/boost --dev
+### 📚 1. Manajemen Akademik
+- Pengelolaan Program/Jurusan.
+- Manajemen Kelas dan Kurikulum terintegrasi.
+- Database Mata Pelajaran.
 
-php artisan boost:install
+### 🗓️ 2. Penjadwalan
+- Penjadwalan kelas otomatis.
+- Kalender akademik lembaga.
+- Monitoring ketersediaan instruktur.
+
+### 📝 3. Penilaian & Raport
+- Input nilai berbasis kompetensi (Tugas, Ujian, Praktik).
+- Rekapitulasi nilai otomatis.
+- **Export Raport ke PDF**.
+
+### 📊 4. Absensi & Kehadiran
+- Sistem absensi real-time untuk peserta dan instruktur.
+- Rekapitulasi kehadiran bulanan/semester.
+
+### 📂 5. Learning Management (LMS)
+- Distribusi materi (PDF, Video, Docs).
+- Akses materi berdasarkan level kelas.
+
+## 🏗 Struktur Database (Simplified)
+
+| Tabel | Deskripsi |
+|---|---|
+| `users` | Data autentikasi dan profil pengguna |
+| `roles` | Definisi hak akses (RBAC) |
+| `branches` | Data kantor cabang Rumah Gemilang |
+| `programs` | Jurusan atau program pendidikan |
+| `classes` | Detail rombongan belajar |
+| `schedules` | Plotting waktu dan tempat |
+| `grades` | Data nilai akademik |
+| `materials` | File materi pembelajaran |
+
+## 📐 Arsitektur & Struktur Folder
+
+Proyek ini mengikuti *best practice* Laravel dengan memisahkan logika bisnis menggunakan **Service Layer** dan **Repository Pattern** untuk menjaga kode tetap bersih (Clean Code):
+
+```text
+app/
+├── Http/Controllers/   # Menangani HTTP Request
+├── Models/             # Definisi Eloquent Models
+├── Services/           # Business Logic (Complex Operations)
+├── Repositories/       # Data Access Layer (Optional)
+resources/
+├── views/              # UI (Blade Templates)
+routes/
+└── web.php             # Definisi Route Utama
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 🗺️ Roadmap Development
 
-## Contributing
+- [ ] **Phase 1: Core System** (Auth, Role, Branch Management)
+- [ ] **Phase 2: Academic Core** (Class, Schedule, Attendance, Grading)
+- [ ] **Phase 3: Reporting** (Materi, Dashboard Analytics, Export PDF)
+- [ ] **Phase 4: Enhancement** (WA/Email Notification, API for Mobile)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## ⚙️ Instalasi
 
-## Code of Conduct
+1. Clone repositori:
+   ```bash
+   git clone https://github.com/Nibol-debug/SyIAR_Gemilang.git
+   ```
+2. Install dependencies:
+   ```bash
+   composer install
+   npm install && npm run dev
+   ```
+3. Copy `.env.example` ke `.env` dan konfigurasi database.
+4. Jalankan migrasi dan seeder:
+   ```bash
+   php artisan migrate --seed
+   ```
+5. Jalankan server:
+   ```bash
+   php artisan serve
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+> **Kesimpulan:** SyIAR Gemilang dirancang untuk menjadi tulang punggung digital bagi Rumah Gemilang, mengutamakan integritas data akademik dan kemudahan penggunaan di setiap level user.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
