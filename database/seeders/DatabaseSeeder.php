@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Branch;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,11 +16,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Buat Cabang Dulu
+        $branch = Branch::create(['branch_name' => 'Rumah Gemilang Pusat']);
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin TKJ 34',
+            'email' => 'admin@gemilang.com',
+            'branch_id' => $branch->id,
+            'role' => 'admin',
+            'password' => bcrypt('Gibran123'),
         ]);
     }
 }

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // Tambahkan kolom untuk relasi dengan cabang dan role
+            $table->foreignId('branch_id')->nullable()->constrained('branches');
+            $table->enum('role', ['admin', 'admin_cabang', 'instruktur', 'manajemen', 'peserta'])->default('peserta');
             $table->rememberToken();
             $table->timestamps();
         });
